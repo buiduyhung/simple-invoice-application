@@ -10,7 +10,7 @@ const routes = [
     component: InvoiceIndex,
   },
   {
-    path: '/not-found',
+    path: '/:pathMatch(.*)*',
     component: NotFound,
   },
   // Add other routes as needed
