@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Product;
 
 class InvoiceItem extends Model
 {
@@ -15,4 +16,8 @@ class InvoiceItem extends Model
         'quantity',
         'unit_price',
     ];
+
+    public function product(){
+        return $this->belongsTo(Product::class);
+    }
 }

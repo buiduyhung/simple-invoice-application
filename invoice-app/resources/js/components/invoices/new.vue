@@ -1,5 +1,8 @@
 <script setup>
     import { onMounted, ref } from 'vue';
+    import { useRouter } from 'vue-router';
+
+    const router = useRouter()
 
     let form = ref([])
     let allcustomers = ref([])
@@ -70,7 +73,7 @@
         return subTotal() - form.value.discount
     }
 
-    const onSave = () => {
+    const onSave = async () => {
         if(listCart.value.length >= 1){
             let SubTotal = 0
             SubTotal = subTotal()
@@ -79,7 +82,7 @@
             Total = total()
 
             const formData = new FormData()
-            formData.append('invoice_item',stringify(listCart.value))
+            formData.append('invoice_item', JSON.stringify(listCart.value));
             formData.append('customer_id', customer_id.value)
             formData.append('date', form.value.date)
             formData.append('due_date', form.value.due_date)
@@ -90,11 +93,12 @@
             formData.append('total', Total)
             formData.append('terms_and_conditions', form.value.terms_and_conditions)
 
-            axios.post("/api/add_invoice", formData)
+            axios.post("/api/add_invoice",formData)
             listCart.value = []
             router.push("/")
         }
     }
+
 
 </script>
 <template>
